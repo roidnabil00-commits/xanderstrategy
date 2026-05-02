@@ -15,20 +15,20 @@ const whyData = [
   },
   {
     title: "Kecepatan Tinggi Berkat AI",
-    desc: "Riset mendalam yang biasanya memakan waktu hingga 3 bulan oleh konsultan tradisional, kami selesaikan hanya dalam 7 hingga 11 hari kerja berkat integrasi kecerdasan buatan (Claude, Perplexity, dll).",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+    desc: "Riset mendalam yang biasanya memakan waktu hingga 3 bulan oleh konsultan tradisional, kami selesaikan hanya dalam 1 hingga 11 hari kerja berkat AI dan Technology",
+    image: "https://i.imgur.com/SRBDFBq.jpeg",
     isHighlight: true, // Highlight poin AI ini karena ini competitive advantage utama lu
   },
   {
     title: "Kualitas Korporat, Harga Terjangkau",
     desc: "Dapatkan wawasan strategis (insight) dan kualitas analisis sekelas konsultan bisnis mahal, namun dengan harga yang sangat masuk akal bagi UKM dan pebisnis lokal.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    image: "https://awsimages.detik.net.id/community/media/visual/2023/07/10/corporate_169.jpeg?w=1200",
     isHighlight: false,
   },
   {
     title: "Rekomendasi \"Quick Wins\"",
-    desc: "Kami tidak hanya memberi setumpuk data. Anda akan mendapatkan 3 hingga 5 langkah praktis yang bisa langsung Anda eksekusi dalam 30 hari pertama dengan modal minim (Guerrilla Marketing strategy).",
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80",
+    desc: "Kami tidak hanya memberi setumpuk data. Anda akan mendapatkan 3 hingga 5 langkah praktis yang bisa langsung Anda eksekusi dalam bisnis dengan modal minim (Guerrilla Marketing strategy).",
+    image: "https://www.pixartprinting.co.uk/blog/wp-content/uploads/2024/12/Marketing-Strategy.jpg",
     isHighlight: false,
   }
 ];

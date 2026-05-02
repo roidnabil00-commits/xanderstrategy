@@ -42,9 +42,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="max-w-xl mx-auto mb-8"
         >
-          <p className="text-sm md:text-base text-slate-400 leading-relaxed">
-            Dapatkan kompas navigasi bisnis Anda hari ini. Kami mengekstraksi data riil lapangan untuk menyusun SOP dan arsitektur sistem bisnis yang siap dieksekusi.
-          </p>
+          
         </motion.div>
 
         {/* CALL TO ACTION (CTA) - DIPERKECIL */}

@@ -15,7 +15,8 @@ import {
   MessageSquare,
   Package,
   Store, // Icon for Offline
-  Globe // Icon for Online
+  Globe, // Icon for Online
+  Ticket // Icon for Promo/Voucher
 } from "lucide-react";
 
 // ============================================================================
@@ -43,6 +44,7 @@ interface FormData {
   phone: string;
   email: string;
   message: string;
+  promoCode: string; // <-- Tambahan untuk field promo/referral
 }
 
 interface FormErrors {
@@ -61,10 +63,10 @@ const pricingData: PricingData[] = [
   {
     id: "offline-1",
     category: "offline",
-    tier: "FREE",
+    tier: "SINGLE",
     headline: "Snapshot Pasar",
-    price: "Gratis",
-    desc: "Gratis, via WhatsApp dalam 24 jam",
+    price: "Rp. 500.000",
+    desc: "PDF, via WhatsApp dalam 24 jam",
     features: [
       { title: "Potensi pasar di lokasi target berdasarkan data aktual" },
       { title: "3 kompetitor terdekat beserta kelemahan utama mereka" },
@@ -73,7 +75,7 @@ const pricingData: PricingData[] = [
       { title: "1 rekomendasi strategis personal dari kami" },
       { title: "Hasil: PDF 1 halaman via WA" }
     ],
-    buttonText: "Minta Riset Gratis",
+    buttonText: "Pilih Paket Single",
     popular: false
   },
   {
@@ -82,7 +84,7 @@ const pricingData: PricingData[] = [
     tier: "BASIC",
     headline: "Kelayakan Lokasi",
     price: "Rp 1–1,5 Juta",
-    desc: "PDF 8–12 halaman, delivered 3–5 hari kerja",
+    desc: "PDF 8–12 halaman, delivered 1-2 hari kerja",
     features: [
       { title: "Analisis traffic lokasi: jam sibuk, hari paling ramai, pola kunjungan" },
       { title: "Daya beli warga di area target berdasarkan data dan profil demografis" },
@@ -101,7 +103,7 @@ const pricingData: PricingData[] = [
     tier: "BUSINESS / PRO",
     headline: "Strategic Blueprint",
     price: "Rp 3–5 Juta",
-    desc: "PDF Strategic Blueprint, delivered 7–10 hari kerja",
+    desc: "PDF + PPT Strategic Blueprint, delivered 3-5 hari kerja",
     features: [
       { title: "Estimasi traffic dan volume transaksi harian kompetitor di lapangan" },
       { title: "Pemetaan anchor tenant dan magnet pengunjung di sekitar lokasi target" },
@@ -124,7 +126,7 @@ const pricingData: PricingData[] = [
     tier: "CORPORATE",
     headline: "Master End-to-End",
     price: "Rp 7–10 Juta",
-    desc: "PPT + PDF delivered 14–21 hari kerja",
+    desc: "PPT + PDF delivered 3-7 hari kerja",
     features: [
       { title: "Competitor intelligence mendalam: estimasi revenue, pola operasional, dan strategi pricing" },
       { title: "Pemetaan ekosistem bisnis lengkap: pemain, supplier, dan mitra strategis" },
@@ -147,10 +149,10 @@ const pricingData: PricingData[] = [
   {
     id: "online-1",
     category: "online",
-    tier: "FREE",
+    tier: "SINGLE",
     headline: "Snapshot Digital",
-    price: "Gratis",
-    desc: "Gratis, via WhatsApp dalam 24 jam",
+    price: "Rp.500.000",
+    desc: "PDF, via WhatsApp dalam 24 jam",
     features: [
       { title: "Potensi pasar digital untuk kategori produk atau jasa kamu" },
       { title: "3 kompetitor online terdekat beserta kelemahan utama mereka" },
@@ -159,7 +161,7 @@ const pricingData: PricingData[] = [
       { title: "1 rekomendasi strategis personal dari kami" },
       { title: "Hasil: PDF 1 halaman via WA" }
     ],
-    buttonText: "Minta Riset Gratis",
+    buttonText: "Minta Riset",
     popular: false
   },
   {
@@ -168,7 +170,7 @@ const pricingData: PricingData[] = [
     tier: "BASIC",
     headline: "Potensi Platform",
     price: "Rp 1–1,5 Juta",
-    desc: "PDF 8–12 halaman, delivered 3–5 hari kerja",
+    desc: "PDF 8–12 halaman, delivered 1-2 hari kerja",
     features: [
       { title: "Analisis volume pencarian: seberapa banyak orang mencari di Google dan TikTok" },
       { title: "Identifikasi platform paling potensial: Tokopedia, Shopee, TikTok Shop, atau IG" },
@@ -187,7 +189,7 @@ const pricingData: PricingData[] = [
     tier: "BUSINESS / PRO",
     headline: "Digital Blueprint",
     price: "Rp 3–5 Juta",
-    desc: "PDF Strategic Blueprint, delivered 7–10 hari kerja",
+    desc: "PDF + PPT Strategic Blueprint, delivered 3-5 hari kerja",
     features: [
       { title: "Estimasi traffic bulanan kompetitor berdasarkan data platform dan engagement" },
       { title: "Ad intelligence: iklan kompetitor dan seberapa agresif mereka beriklan" },
@@ -211,7 +213,7 @@ const pricingData: PricingData[] = [
     tier: "CORPORATE",
     headline: "Master Digital",
     price: "Rp 7–10 Juta",
-    desc: "PPT + PDF delivered 14–21 hari kerja",
+    desc: "PPT + PDF delivered 3-7 hari kerja",
     features: [
       { title: "Competitor intelligence mendalam: estimasi revenue online, volume, dan pricing" },
       { title: "Pemetaan ekosistem digital: pemain utama, affiliator terbesar, dan mitra strategis" },
@@ -244,7 +246,9 @@ export default function PricingSection() {
   // State untuk Modal & Form
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTier, setSelectedTier] = useState<PricingData | null>(null);
-  const [formData, setFormData] = useState<FormData>({ name: "", phone: "", email: "", message: "" });
+  
+  // Ditambahkan inisiasi state promoCode
+  const [formData, setFormData] = useState<FormData>({ name: "", phone: "", email: "", message: "", promoCode: "" });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -267,13 +271,18 @@ export default function PricingSection() {
     setIsModalOpen(false);
     setTimeout(() => {
       setSelectedTier(null);
-      setFormData({ name: "", phone: "", email: "", message: "" });
+      // Reset form beserta field promoCode
+      setFormData({ name: "", phone: "", email: "", message: "", promoCode: "" });
     }, 300);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Otomatis ubah kode promo menjadi huruf kapital
+    const finalValue = name === "promoCode" ? value.toUpperCase() : value;
+    
+    setFormData(prev => ({ ...prev, [name]: finalValue }));
     if (errors[name as keyof FormErrors]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
@@ -298,13 +307,16 @@ export default function PricingSection() {
       
       const categoryText = selectedTier.category === 'offline' ? 'Toko Fisik / Offline' : 'Toko Online / Digital';
       
+      // Jika ada kode promo, sisipkan ke dalam template WhatsApp
+      const promoText = formData.promoCode.trim() !== "" ? `\n*Kode Promo:* ${formData.promoCode.trim()}` : "";
+      
       const textMessage = `Halo Tim Xander SBB,
 
 Saya tertarik untuk mengambil paket *${selectedTier.tier} (${categoryText})* bulan ini. Berikut data saya:
 
 *Nama:* ${formData.name}
 *No. WhatsApp:* ${formData.phone}
-*Email:* ${formData.email || "-"}
+*Email:* ${formData.email || "-"}${promoText}
 
 *Kebutuhan Tambahan/Bisnis:*
 ${formData.message || "-"}
@@ -332,7 +344,7 @@ Mohon panduan untuk proses selanjutnya. Terima kasih!`;
           <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">
             Pilih Katalog SBB Anda
           </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">Dari riset gratis hingga pendampingan korporat end-to-end. Sesuaikan dengan model bisnis Anda.</p>
+          <p className="text-slate-400 max-w-2xl mx-auto">Dari riset cepat hingga pendampingan korporat end-to-end. Sesuaikan dengan model bisnis Anda.</p>
         </div>
 
         {/* TAB TOGGLE (OFFLINE VS ONLINE) */}
@@ -422,7 +434,7 @@ Mohon panduan untuk proses selanjutnya. Terima kasih!`;
       </div>
 
       {/* ============================================================================ */}
-      {/* MODAL / POP-UP FORMULIR (TIDAK ADA PERUBAHAN SIGNIFIKAN) */}
+      {/* MODAL / POP-UP FORMULIR WITH PROMO CODE */}
       {/* ============================================================================ */}
       <AnimatePresence>
         {isModalOpen && selectedTier && (
@@ -460,6 +472,7 @@ Mohon panduan untuk proses selanjutnya. Terima kasih!`;
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* FIELD NAMA */}
                   <div>
                     <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-1 mb-1 block">Nama Lengkap</label>
                     <div className={`relative flex items-center bg-[#131A2A] border rounded-lg transition-colors ${errors.name ? 'border-rose-500' : 'border-white/10 hover:border-white/20 focus-within:border-teal-500'}`}>
@@ -469,6 +482,7 @@ Mohon panduan untuk proses selanjutnya. Terima kasih!`;
                     {errors.name && <p className="text-[10px] text-rose-400 mt-1 ml-1">{errors.name}</p>}
                   </div>
 
+                  {/* FIELD WHATSAPP */}
                   <div>
                     <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-1 mb-1 block">Nomor WhatsApp</label>
                     <div className={`relative flex items-center bg-[#131A2A] border rounded-lg transition-colors ${errors.phone ? 'border-rose-500' : 'border-white/10 hover:border-white/20 focus-within:border-teal-500'}`}>
@@ -478,6 +492,7 @@ Mohon panduan untuk proses selanjutnya. Terima kasih!`;
                     {errors.phone && <p className="text-[10px] text-rose-400 mt-1 ml-1">{errors.phone}</p>}
                   </div>
 
+                  {/* FIELD EMAIL */}
                   <div>
                     <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-1 mb-1 block">Email (Opsional)</label>
                     <div className="relative flex items-center bg-[#131A2A] border border-white/10 hover:border-white/20 focus-within:border-teal-500 rounded-lg transition-colors">
@@ -486,6 +501,18 @@ Mohon panduan untuk proses selanjutnya. Terima kasih!`;
                     </div>
                   </div>
 
+                  {/* FIELD PROMO/REFERRAL */}
+                  <div>
+                    <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-1 mb-1 flex items-center gap-1.5">
+                      Kode Promo / Referral <span className="text-[9px] text-teal-500 bg-teal-500/10 px-1.5 py-0.5 rounded">(Opsional)</span>
+                    </label>
+                    <div className="relative flex items-center bg-[#131A2A] border border-white/10 hover:border-white/20 focus-within:border-teal-500 rounded-lg transition-colors">
+                      <div className="absolute left-4 text-slate-500"><Ticket className="w-4 h-4" /></div>
+                      <input type="text" name="promoCode" value={formData.promoCode} onChange={handleInputChange} placeholder="Punya kode voucher? Ketik di sini..." className="w-full bg-transparent text-white text-sm py-3 pl-11 pr-4 outline-none uppercase placeholder:normal-case" />
+                    </div>
+                  </div>
+
+                  {/* FIELD MESSAGE */}
                   <div>
                     <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-1 mb-1 block">Kebutuhan Bisnis (Opsional)</label>
                     <div className="relative flex items-start bg-[#131A2A] border border-white/10 hover:border-white/20 focus-within:border-teal-500 rounded-lg transition-colors pt-3">
@@ -494,6 +521,7 @@ Mohon panduan untuk proses selanjutnya. Terima kasih!`;
                     </div>
                   </div>
 
+                  {/* SUBMIT BUTTON */}
                   <div className="pt-4 mt-6 border-t border-white/5">
                     <button 
                       type="submit" 
@@ -514,7 +542,7 @@ Mohon panduan untuk proses selanjutnya. Terima kasih!`;
         )}
       </AnimatePresence>
 
-      {/* STYLE UNTUK CUSTOM SCROLLBAR (Biar area fitur nggak luber kalau kepanjangan) */}
+      {/* STYLE UNTUK CUSTOM SCROLLBAR */}
       <style dangerouslySetInnerHTML={{__html: `
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }

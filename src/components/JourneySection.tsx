@@ -18,13 +18,13 @@ const journeyData = [
     step: "2",
     title: "Deep Research",
     desc: "Tim AI dan researcher kami akan membedah kondisi daerah, ekosistem usaha sekitar, hingga mengintip kelemahan kompetitor Anda di titik lokasi.",
-    image: "https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?auto=format&fit=crop&w=800&q=80",
+    image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini2.5DeepResearch_SocialShare_1920x1080.max-1440x810.png",
     stats: "Data Diekstraksi"
   },
   {
     step: "3",
     title: "Analisis & Bangun Blueprint",
-    desc: "Data mentah diberikan dan diolah menjadi Business Model Canvas (BMC), Proyeksi Keuangan, Riset Data dan Strategi Marketing.",
+    desc: "Data mentah diberikan dan diolah menjadi File Riset Data dan Strategi Marketing.",
     image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
     stats: "Blueprint Terbentuk"
   },
