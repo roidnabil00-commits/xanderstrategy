@@ -4,39 +4,45 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-// --- DATA STRUCTURES (NEW COPYWRITING) ---
-
+// --- DATA STRUCTURES (RECA COPYWRITING) ---
 const whyData = [
   {
-    title: "Kepastian Berbasis Data",
-    desc: "Setiap keputusan didukung fakta lapangan. Kami membedah 52 poin krusial mulai dari demografi, pergerakan kompetitor, hingga regulasi lokal. Bukan sekadar tebak-tebakan.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+    title: "Keputusan Berbasis Data & AI",
+    desc: "RECA mengumpulkan dan mengolah data menggunakan Algoritma, Statistika, dan AI untuk menghasilkan keputusan bisnis presisi yang meminimalisir kerugian.",
+    image: "produk1.jpg",
     isHighlight: false,
   },
   {
-    title: "Kecepatan Tinggi Berkat AI",
-    desc: "Riset mendalam yang biasanya memakan waktu hingga 3 bulan oleh konsultan tradisional, kami selesaikan hanya dalam 1 hingga 11 hari kerja berkat AI dan Technology",
-    image: "https://i.imgur.com/SRBDFBq.jpeg",
-    isHighlight: true, // Highlight poin AI ini karena ini competitive advantage utama lu
+    title: "Bukan Sekadar Tools, Tapi Teman",
+    desc: "Kami hadir untuk mendampingi bisnis Anda di Indonesia agar tidak ketinggalan zaman dan terus bisa beradaptasi di era Teknologi & AI.",
+    image: "https://www.nvidia.com/content/nvidiaGDC/us/en_US/solutions/ai/agentic-ai/_jcr_content/root/responsivegrid/nv_container_copy_10/nv_container/nv_teaser_copy_626440742.coreimg.100.1070.jpeg/1773697497073/nvidia-nims-blueprint.jpeg",
+    isHighlight: true, 
   },
   {
-    title: "Kualitas Korporat, Harga Terjangkau",
-    desc: "Dapatkan wawasan strategis (insight) dan kualitas analisis sekelas konsultan bisnis mahal, namun dengan harga yang sangat masuk akal bagi UKM dan pebisnis lokal.",
-    image: "https://awsimages.detik.net.id/community/media/visual/2023/07/10/corporate_169.jpeg?w=1200",
+    title: "Edukasi & Inovasi Sistem",
+    desc: "Misi kami adalah mengedukasi penggunaan AI dan terus berinovasi dalam sistem serta teknologi khusus untuk industri RECA agar bisnis Anda berkembang pesat.",
+    image: "banner1.jpg",
     isHighlight: false,
   },
   {
-    title: "Rekomendasi \"Quick Wins\"",
-    desc: "Kami tidak hanya memberi setumpuk data. Anda akan mendapatkan 3 hingga 5 langkah praktis yang bisa langsung Anda eksekusi dalam bisnis dengan modal minim (Guerrilla Marketing strategy).",
-    image: "https://www.pixartprinting.co.uk/blog/wp-content/uploads/2024/12/Marketing-Strategy.jpg",
+    title: "Cegah Kerugian & PHK",
+    desc: "Mendorong pertumbuhan ekonomi dengan pemahaman data dan riset, sehingga keputusan salah bisa diminimalisir untuk mencegah kerugian besar yang berujung pada PHK.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROBpX8-yA9KcNgc6eOHScF-PpGw4ElmpXGWA&s",
     isHighlight: false,
   }
 ];
 
 export default function WhySection() {
   return (
-    <section id="why" className="py-24 bg-[#0A0F1C] relative border-b border-white/5">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section 
+      id="why" 
+      className="py-24 relative border-b border-white/5 bg-cover bg-center" 
+      style={{ backgroundImage: "url('/banner1.jpg')" }}
+    >
+      {/* OVERLAY GELAP BIAR TEKS TETAP JELAS */}
+      <div className="absolute inset-0 bg-[#0A0F1C]/85 z-0"></div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* HEADER & SUB-HEADER */}
         <div className="text-center mb-16">
@@ -47,7 +53,7 @@ export default function WhySection() {
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-6"
           >
-            Kenapa Pilih Strategic <br className="hidden md:block" /> Business Blueprint (SBB)?
+            Kenapa Memilih <br className="hidden md:block" /> RECA?
           </motion.h2>
           
           <motion.p 
@@ -57,11 +63,11 @@ export default function WhySection() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-base md:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed"
           >
-            SBB hadir untuk mengubah cara Anda mengeksekusi bisnis. Inilah 4 alasan mengapa SBB adalah investasi terbaik Anda:
+            RECA Industri (Restaurant, Retail Khusus Makanan & Minuman, Cafe, Catering) selama ini telah menjadi penggerak terbesar ekonomi Indonesia, Maka dari itu RECA hadir untuk memperbesar industri ini menggunakan technology terbaru dan AI agar industri ini bisa terus beradaptasi di zaman sekarang. Berikut value yang kami berikan:
           </motion.p>
         </div>
 
-        {/* GRID LAYOUT (Diubah jadi md:grid-cols-2 agar 4 item pas jadi 2x2) */}
+        {/* GRID LAYOUT */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 pt-4">
           {whyData.map((item, index) => (
             <motion.div
@@ -105,7 +111,6 @@ export default function WhySection() {
             </motion.div>
           ))}
         </div>
-        
       </div>
     </section>
   );

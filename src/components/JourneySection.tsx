@@ -1,48 +1,57 @@
+// ============================================================================
+// FILE: components/JourneySection.tsx
+// ============================================================================
 "use client";
 
 import React from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 
-// --- DATA STRUCTURES (NEW COPYWRITING) ---
+// ============================================================================
+// DATA STRUCTURES (RECA BRANDING UPDATE)
+// ============================================================================
 
 const journeyData = [
   {
     step: "1",
-    title: "Intake & Brief",
-    desc: "Kita mulai dengan isi form untuk membedah visi, target, dan ekspektasi Anda. Tidak ada biaya sebelum kita sepakat!",
+    title: "Intake & Concept Briefing",
+    desc: "Kami memulai dengan membedah visi bisnis RECA (Restaurant, Retail, Cafe, Catering) Anda untuk menyelaraskan target riset dengan objektif ekspansi Anda.",
     image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80",
     stats: "Visi Terpetakan"
   },
   {
     step: "2",
-    title: "Deep Research",
-    desc: "Tim AI dan researcher kami akan membedah kondisi daerah, ekosistem usaha sekitar, hingga mengintip kelemahan kompetitor Anda di titik lokasi.",
+    title: "AI Data Extraction",
+    desc: "Algoritma AI Terminal & Tim kami bekerja mengekstraksi data makro wilayah, perputaran uang, behavior customer, hingga memetakan blind spot kompetitor secara presisi dan data, riset, informasi lainnya.",
     image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini2.5DeepResearch_SocialShare_1920x1080.max-1440x810.png",
-    stats: "Data Diekstraksi"
+    stats: "Intelijen Terintegrasi"
   },
   {
     step: "3",
-    title: "Analisis & Bangun Blueprint",
-    desc: "Data mentah diberikan dan diolah menjadi File Riset Data dan Strategi Marketing.",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
-    stats: "Blueprint Terbentuk"
+    title: "Blueprint Architecture",
+    desc: "Transformasi data mentah menjadi strategi matang. Kami menyusun proyeksi secara presisi, trend dilapangan, yang dirubah menjadi data, analisis real time.",
+    image: "produk1.jpg",
+    stats: "Strategi Terbentuk"
   },
   {
     step: "4",
-    title: "Delivery & Presentasi Eksklusif",
-    desc: "Kami akan mempresentasikan hasil akhir secara langsung kepada Anda (via Zoom) atau video dan menyerahkan seluruh aset digital Anda.",
-    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
+    title: "Implementation & Access",
+    desc: "Penyerahan instrumen analitik lengkap. Dapatkan panduan eksekusi langkah-demi-langkah atau akses dashboard interaktif untuk monitoring bisnis Anda secara real-time.",
+    image: "banner1.jpg",
     stats: "Siap Dieksekusi"
   }
 ];
+
+// ============================================================================
+// MAIN COMPONENT
+// ============================================================================
 
 export default function JourneySection() {
   return (
     <section id="journey" className="py-24 bg-[#0A0F1C] border-t border-white/5 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* HEADER */}
+        {/* HEADER SECTION */}
         <div className="text-center mb-16 md:mb-24">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -51,7 +60,7 @@ export default function JourneySection() {
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-4"
           >
-            Bagaimana Kami Bekerja <br className="hidden md:block" /> Untuk Anda?
+            Alur Kerja <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">RECA-Ai-Terminal</span> <br className="hidden md:block" /> Untuk Bisnis Anda
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -60,7 +69,7 @@ export default function JourneySection() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-teal-400 font-medium tracking-wide uppercase text-sm"
           >
-            (Proses Cepat & Transparan)
+            (Metodologi Presisi & Berbasis Data)
           </motion.p>
         </div>
 
@@ -92,13 +101,13 @@ export default function JourneySection() {
                     {item.desc}
                   </p>
                   
-                  {/* Small stat box */}
+                  {/* Status Box */}
                   <div className={`inline-flex items-center space-x-3 bg-[#131A2A] rounded-xl border border-white/5 p-3 pr-5 ${index % 2 === 0 ? "" : "md:flex-row-reverse md:space-x-reverse"}`}>
                     <div className="w-8 h-8 rounded-full bg-[#0A0F1C] border border-teal-500/30 flex items-center justify-center shrink-0">
                       <CheckCircle2 className="w-4 h-4 text-teal-400" />
                     </div>
                     <div className={index % 2 === 0 ? "text-left" : "md:text-right text-left"}>
-                      <p className="text-white font-medium text-xs md:text-sm">Langkah {item.step} Selesai</p>
+                      <p className="text-white font-medium text-xs md:text-sm">Fase {item.step} Selesai</p>
                       <p className="text-slate-500 text-[10px] md:text-xs">{item.stats}</p>
                     </div>
                   </div>
@@ -114,7 +123,7 @@ export default function JourneySection() {
                       className="w-full h-48 md:h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
-                  {/* Decorative element behind image (Desktop only) */}
+                  {/* Decorative glow behind image */}
                   <div className={`hidden md:block absolute top-1/2 -z-10 w-full h-full bg-gradient-to-br from-teal-500/10 to-blue-500/10 rounded-2xl blur-xl transform -translate-y-1/2 ${index % 2 === 0 ? "-left-4" : "left-4"}`}></div>
                 </div>
 

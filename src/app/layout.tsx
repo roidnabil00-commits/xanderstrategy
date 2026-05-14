@@ -1,19 +1,19 @@
 // ============================================================================
 // FILE: app/layout.tsx
-// DESCRIPTION: Root Layout & Global Metadata Configuration
+// DESCRIPTION: Root Layout & Global Metadata Configuration (RECA Branding)
 // ============================================================================
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-// 1. Inisialisasi Font Utama (Bisa diganti sesuai selera desain lu)
+// 1. Inisialisasi Font Utama
 const inter = Inter({ subsets: ["latin"] });
 
 // ============================================================================
 // VIEWPORT CONFIGURATION (Standar Next.js 14+)
 // ============================================================================
 export const viewport: Viewport = {
-  themeColor: "#0A0F1C", // Warna background utama Xander agar browser bar di HP ikut gelap
+  themeColor: "#0A0F1C", // Warna background utama agar browser bar di HP ikut gelap
   width: "device-width",
   initialScale: 1,
   maximumScale: 1, // Mencegah zoom berlebih di mobile agar UI tidak rusak
@@ -25,42 +25,44 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   // --- Basic SEO ---
   title: {
-    default: "Xander Strategy | Strategic Business Blueprint (SBB)",
-    template: "%s | Xander Strategy",
+    default: "RECA | AI Terminal Analyst",
+    template: "%s | RECA",
   },
   description:
-    "Layanan riset pasar dan strategi marketing berbasis data (Offline & Digital) untuk memastikan ekspansi bisnis Anda presisi, terukur, dan minim risiko.",
+    "Perusahaan teknologi berbasis AI, data, dan riset khusus untuk industri RECA (Restaurant, Retail F&B, Cafe, Catering). Ambil keputusan bisnis presisi, minimalisir kerugian, dan ekspansi dengan data faktual.",
   keywords: [
-    "Xander Strategy",
-    "Strategic Business Blueprint",
-    "SBB",
-    "Riset Pasar",
-    "Konsultan Bisnis",
-    "Strategi Marketing",
-    "Business Plan",
-    "Digital Marketing",
+    "RECA",
+    "AI Terminal Analyst",
+    "AI Terminal",
+    "Mulai Bisnis F&b",
+    "Riset F&B",
+    "Data Restoran",
+    "Bisnis Kuliner",
+    "Konsultan F&B",
+    "Strategi Cafe",
+    "Business Plan F&B",
+    "AI Bisnis",
     "Ekspansi Bisnis",
-    "Analisis Kompetitor",
     "Indonesia"
   ],
   authors: [{ name: "Bil Xander", url: "https://xanderstrategy.vercel.app/" }],
-  creator: "Xander Systems",
-  publisher: "Xander Strategy",
+  creator: "Xander Tech System",
+  publisher: "RECA by Xander",
 
   // --- Open Graph (Preview Link untuk WhatsApp, Facebook, LinkedIn) ---
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://xanderstrategy.vercel.app/", // Ganti dengan domain asli lu nanti
-    title: "Xander Strategy | Strategic Business Blueprint",
-    description: "Gunakan Riset & Data Untuk Bangun Bisnis Jangan Asal Nebak Blueprint Riset & Data. ",
-    siteName: "Xander Strategy",
+    url: "https://xanderstrategy.vercel.app/", // Pastikan ganti dengan domain asli lu nanti jika sudah ada
+    title: "RECA | AI Terminal Analyst",
+    description: "Platform intelijen data & teknologi AI untuk industri F&B. Ambil keputusan presisi dan dominasi pasar Anda tanpa sekadar menebak.",
+    siteName: "RECA Intelligence Suite",
     images: [
       {
-        url: "/og-image.jpg", // Masukkan gambar banner ukuran 1200x630px di folder /public
+        url: "/og-image.jpg", // Pastikan file gambar banner ukuran 1200x630px ada di folder /public
         width: 1200,
         height: 630,
-        alt: "Xander Strategy SBB Preview",
+        alt: "RECA AI Terminal Preview",
       },
     ],
   },
@@ -68,8 +70,8 @@ export const metadata: Metadata = {
   // --- Twitter / X Cards ---
   twitter: {
     card: "summary_large_image",
-    title: "Xander Strategy | Strategic Business Blueprint",
-    description: "Eksekusi strategi bisnis tanpa tebak-tebakan. Validasi ide dan pasar Anda dengan data aktual.",
+    title: "RECA | AI Terminal Analyst",
+    description: "Platform intelijen data & teknologi AI untuk industri F&B. Ambil keputusan presisi dan dominasi pasar Anda tanpa sekadar menebak.",
     images: ["/og-image.jpg"], // Menggunakan gambar yang sama dengan Open Graph
   },
 

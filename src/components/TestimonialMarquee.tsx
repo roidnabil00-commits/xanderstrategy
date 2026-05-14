@@ -1,192 +1,129 @@
 // ============================================================================
 // FILE: components/TestimonialMarquee.tsx
+// DESCRIPTION: Privacy-First Client Shield Marquee (Exclusivity Mode)
+// PURPOSE: Showcasing data protection & confidentiality instead of public reviews.
 // ============================================================================
 "use client";
 
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { Quote, Star, MapPin, Briefcase } from "lucide-react";
+import { ShieldCheck, Lock, EyeOff, Fingerprint, ShieldAlert } from "lucide-react";
 
 // ============================================================================
 // 1. INTERFACES & TYPE DEFINITIONS
 // ============================================================================
 
-interface TestimonialData {
+interface PrivacyBadgeData {
   id: string;
-  name: string;
-  role: string;
-  location: string;
-  text: string;
-  rating: number;
+  label: "CONFIDENTIAL" | "PRIVAT" | "EKSLUSIF";
+  icon: React.ReactNode;
+  code: string;
 }
 
 interface MarqueeRowProps {
-  items: TestimonialData[];
+  items: PrivacyBadgeData[];
   direction?: "left" | "right";
   speed?: number;
 }
 
-interface TestimonialCardProps {
-  data: TestimonialData;
-}
-
 // ============================================================================
-// 2. CONSTANTS & DATA
+// 2. DATA STRUCTURES (THE PRIVACY PROTOCOL)
 // ============================================================================
 
-const testimonials: TestimonialData[] = [
+const privacyBadges: PrivacyBadgeData[] = [
   {
-    id: "testi-1",
-    name: "Arief Budiman",
-    role: "Owner, Kedai Kopi & Roastery",
-    location: "Bandung",
-    rating: 5,
-    text: "Gua udah mau buka cabang kedua di Cimahi, tapi ragu lokasinya tepat atau nggak. Setelah dapat blueprint dari Xander Strategy, baru ketahuan kalau area yang gua incar itu sudah oversaturated ada 11 cafe dalam radius 500 meter. Mereka rekomendasiin lokasi alternatif. Sekarang cabang kedua gua udah jalan 4 bulan dan sudah balik modal."
+    id: "p-1",
+    label: "CONFIDENTIAL",
+    icon: <Lock className="w-5 h-5 text-rose-500" />,
+    code: "PROT-X-001"
   },
   {
-    id: "testi-2",
-    name: "Sinta Maharani",
-    role: "Founder, Brand Skincare Lokal",
-    location: "Jakarta",
-    rating: 5,
-    text: "Gua seller Tokopedia yang udah 2 tahun tapi stagnan. Ternyata setelah diriset sama Xander Strategy, keyword yang gua pakai itu hampir nggak ada yang nyarinya gua salah target audiens. Blueprint-nya kasih gua keyword baru dan repositioning produk. Dalam 60 hari, omset gua naik hampir 3x."
+    id: "p-2",
+    label: "PRIVAT",
+    icon: <EyeOff className="w-5 h-5 text-teal-400" />,
+    code: "PRIV-X-99"
   },
   {
-    id: "testi-3",
-    name: "Doni Prasetya",
-    role: "Investor, F&B & Properti",
-    location: "Surabaya",
-    rating: 5,
-    text: "Biasanya sebelum invest gua butuh waktu 2–3 bulan buat due diligence sendiri. Xander Strategy selesaikan dalam 7 hari kerja, lengkap dengan 3 skenario proyeksi keuangan semua ada asumsinya dan bisa gua audit. Sekarang kalau ada deal masuk, gua langsung minta SBB dulu."
+    id: "p-3",
+    label: "EKSLUSIF",
+    icon: <ShieldCheck className="w-5 h-5 text-blue-400" />,
+    code: "EKS-ST-10"
   },
   {
-    id: "testi-4",
-    name: "Rizka Amalia",
-    role: "Owner, Butik Fashion",
-    location: "Yogyakarta",
-    rating: 5,
-    text: "Yang bikin gua kaget adalah bagian kompetitor intelligence-nya. Xander Strategy bisa breakdown kelemahan 5 toko pesaing gua dari review pelanggan mereka keluhan apa yang paling sering muncul. Dari situ gua tahu persis celah mana yang bisa gua masuk."
+    id: "p-4",
+    label: "CONFIDENTIAL",
+    icon: <Fingerprint className="w-5 h-5 text-amber-500" />,
+    code: "AUTH-882"
   },
   {
-    id: "testi-5",
-    name: "Hendra Kusuma",
-    role: "CEO, Startup Logistik",
-    location: "Bekasi",
-    rating: 5,
-    text: "Gua butuh pitch deck untuk investor tapi nggak mau isinya generik. Xander Strategy riset landscape kompetitor logistik di Jabodetabek secara mendalam siapa pemainnya dan gap yang belum ada. Hasilnya jadi backbone presentasi gua ke investor. Deal-nya closed."
+    id: "p-5",
+    label: "PRIVAT",
+    icon: <Lock className="w-5 h-5 text-teal-500" />,
+    code: "ENCR-YR-4"
   },
   {
-    id: "testi-6",
-    name: "Yuni Astuti",
-    role: "Owner, Wedding Organizer",
-    location: "Semarang",
-    rating: 5,
-    text: "Bisnis gua udah 5 tahun tapi gua nggak pernah benar-benar tahu siapa target pelanggan gua yang paling profitable. Ketahuan bahwa 70% revenue gua datang dari segmen yang selama ini gua anggap sekunder. Strategi marketing gua pivot, dalam 3 bulan closing rate naik."
-  },
-  {
-    id: "testi-7",
-    name: "Fajar Ramadhan",
-    role: "Entrepreneur, Franchise",
-    location: "Cianjur",
-    rating: 5,
-    text: "Gua mau buka franchise di 3 kota sekaligus. Xander Strategy kerjain ketiganya dalam 14 hari lengkap dengan perbandingan potensi per kota dan kompetitor masing-masing. Hasilnya actionable banget, bukan laporan yang cuma enak dibaca tapi susah dieksekusi."
+    id: "p-6",
+    label: "EKSLUSIF",
+    icon: <ShieldAlert className="w-5 h-5 text-indigo-400" />,
+    code: "X-PRO-TOP"
   }
 ];
 
 // ============================================================================
-// 3. HELPER FUNCTIONS
+// 3. SUB-COMPONENTS
 // ============================================================================
-
-const getInitials = (name: string): string => {
-  const parts = name.trim().split(" ");
-  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-  return name.substring(0, 2).toUpperCase();
-};
-
-const getAvatarColor = (id: string): string => {
-  const colors = ["bg-teal-500", "bg-blue-500", "bg-emerald-500", "bg-amber-500", "bg-rose-500", "bg-indigo-500", "bg-cyan-500"];
-  let hash = 0;
-  for (let i = 0; i < id.length; i++) hash = id.charCodeAt(i) + ((hash << 5) - hash);
-  return colors[Math.abs(hash) % colors.length];
-};
-
-// ============================================================================
-// 4. SUB-COMPONENTS
-// ============================================================================
-
-const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
-  return (
-    <div className="flex items-center gap-0.5 mb-2.5">
-      {[...Array(5)].map((_, i) => (
-        <Star 
-          key={i} 
-          className={`w-3 h-3 ${i < rating ? "fill-amber-400 text-amber-400" : "fill-slate-700 text-slate-700"}`} 
-        />
-      ))}
-    </div>
-  );
-};
 
 /**
- * TESTIMONIAL CARD
- * Diperkecil ukurannya (w-64 = 256px) agar muat berdampingan di layar mobile.
- * Padding dan font-size disusutkan agar tetap proporsional.
+ * PRIVACY BADGE CARD
+ * Desain kartu yang menonjolkan aspek keamanan data.
  */
-const TestimonialCard: React.FC<TestimonialCardProps> = ({ data }) => {
-  const avatarColor = getAvatarColor(data.id);
-  const initials = getInitials(data.name);
-
+const PrivacyBadge: React.FC<{ data: PrivacyBadgeData }> = ({ data }) => {
   return (
-    <div className="w-[260px] md:w-[320px] bg-[#131A2A] border border-white/5 rounded-xl p-4 md:p-5 flex flex-col shrink-0 whitespace-normal shadow-lg hover:border-white/10 transition-colors group">
+    <div className="w-[240px] md:w-[280px] bg-[#131A2A]/60 backdrop-blur-xl border border-white/5 rounded-xl p-4 md:p-6 flex flex-col items-center justify-center shrink-0 shadow-lg hover:border-teal-500/30 transition-all duration-500 group relative overflow-hidden">
       
-      {/* Header Kartu */}
-      <div className="flex items-start gap-3 mb-3">
-        <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shrink-0 shadow-md ${avatarColor}`}>
-          <span className="text-[#0A0F1C] font-extrabold text-[10px] md:text-xs tracking-wider">
-            {initials}
-          </span>
+      {/* Background Scanning Animation Effect */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-teal-500/10 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-[2s] ease-linear pointer-events-none"></div>
+
+      <div className="relative z-10 flex flex-col items-center gap-4">
+        {/* Ikon Keamanan dengan Efek Glow */}
+        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#0A0F1C] border border-white/10 flex items-center justify-center shadow-inner group-hover:shadow-[0_0_20px_rgba(45,212,191,0.2)] transition-all">
+          {data.icon}
         </div>
         
-        <div className="flex flex-col flex-grow min-w-0">
-          <h4 className="text-white font-bold text-xs md:text-sm truncate">{data.name}</h4>
-          <div className="flex items-center gap-1 text-slate-400 mt-0.5">
-            <Briefcase className="w-3 h-3 shrink-0 text-teal-500" />
-            <span className="text-[9px] md:text-[10px] truncate">{data.role}</span>
-          </div>
-          <div className="flex items-center gap-1 text-slate-400 mt-0.5">
-            <MapPin className="w-3 h-3 shrink-0 text-rose-400" />
-            <span className="text-[9px] md:text-[10px] truncate">{data.location}</span>
+        <div className="flex flex-col items-center text-center">
+          {/* Kata Kunci Utama: CONFIDENTIAL / PRIVAT / EKSLUSIF */}
+          <h4 className="text-white font-black text-lg md:text-xl tracking-[0.2em] mb-1 group-hover:text-teal-400 transition-colors">
+            {data.label}
+          </h4>
+          
+          {/* Meta Data Enkripsi (Hanya untuk visual) */}
+          <div className="flex items-center gap-2 px-2 py-0.5 rounded bg-white/5 border border-white/5">
+            <div className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></div>
+            <span className="text-[10px] font-mono text-slate-400 tracking-widest uppercase">
+              {data.code}
+            </span>
           </div>
         </div>
-
-        <Quote className="w-5 h-5 md:w-6 md:h-6 text-white/5 shrink-0 group-hover:text-teal-500/20 transition-colors" />
       </div>
 
-      <StarRating rating={data.rating} />
-
-      {/* Body Teks (Leading diperkecil agar tidak memakan ruang) */}
-      <div className="flex-grow">
-        <p className="text-slate-300 text-[10px] md:text-xs leading-snug italic">
-          "{data.text}"
-        </p>
-      </div>
-
+      {/* Decorative Corner Borders */}
+      <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20"></div>
+      <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/20"></div>
     </div>
   );
 };
 
 /**
- * MARQUEE ROW
- * Menghandle animasi berjalan. Gap diperkecil (gap-3 / gap-4) agar padat.
+ * MARQUEE ROW COMPONENT
  */
 const MarqueeRow: React.FC<MarqueeRowProps> = ({ items, direction = "left", speed = 40 }) => {
-  const duplicatedItems = [...items, ...items, ...items]; // Dikalikan 3x agar layar PC ultrawide tidak kosong
-  const xAnimation = direction === "left" ? ["0%", "-33.33%"] : ["-33.33%", "0%"];
+  const duplicatedItems = [...items, ...items, ...items, ...items];
+  const xAnimation = direction === "left" ? ["0%", "-25%"] : ["-25%", "0%"];
 
   return (
-    <div className="relative flex overflow-hidden w-full py-2">
+    <div className="relative flex overflow-hidden w-full py-4">
       <motion.div
-        className="flex gap-3 md:gap-4 w-max"
+        className="flex gap-4 md:gap-6 w-max"
         animate={{ x: xAnimation }}
         transition={{
           repeat: Infinity,
@@ -195,7 +132,7 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ items, direction = "left", spee
         }}
       >
         {duplicatedItems.map((item, idx) => (
-          <TestimonialCard key={`${item.id}-${idx}`} data={item} />
+          <PrivacyBadge key={`${item.id}-${idx}`} data={item} />
         ))}
       </motion.div>
     </div>
@@ -203,49 +140,70 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ items, direction = "left", spee
 };
 
 // ============================================================================
-// 5. MAIN COMPONENT EXPORT
+// 4. MAIN COMPONENT EXPORT
 // ============================================================================
 
 export default function TestimonialMarquee() {
-  const { topRow, bottomRow } = useMemo(() => {
-    return {
-      topRow: testimonials.slice(0, 4),
-      bottomRow: testimonials.slice(4, 7)
-    };
-  }, []);
+  const topRow = useMemo(() => privacyBadges.slice(0, 3), []);
+  const bottomRow = useMemo(() => privacyBadges.slice(3, 6), []);
 
   return (
     <section 
       id="testimonials" 
-      className="py-16 md:py-24 bg-[#0A0F1C] border-t border-b border-white/5 relative overflow-hidden"
+      className="py-16 md:py-24 border-t border-b border-white/5 relative overflow-hidden bg-cover bg-center"
+      style={{ backgroundImage: "url('/banner2.png')" }}
     >
+      {/* OVERLAY GELAP BIAR TEXT TETAP TERBACA */}
+      <div className="absolute inset-0 bg-[#0A0F1C]/85 z-0"></div>
+
+      {/* Visual background atmospheric */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 w-[600px] h-[200px] bg-teal-900/10 rounded-[100%] blur-[100px] transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute top-1/2 left-1/2 w-[800px] h-[300px] bg-rose-900/10 rounded-[100%] blur-[120px] transform -translate-x-1/2 -translate-y-1/2 opacity-50"></div>
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-teal-900/10 rounded-full blur-[100px] opacity-30"></div>
       </div>
 
-      {/* HEADER COMPACT (Dipusatkan ke tengah dan ukurannya diperkecil) */}
-      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-12 text-center">
-        <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 mb-4">
-          <Quote className="w-5 h-5" />
-        </div>
-        <h2 className="text-2xl md:text-4xl font-bold text-white tracking-tight leading-tight mb-3">
-          Kisah Sukses Klien <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">Xander SBB</span>
+      {/* HEADER SECTION (Fokus pada Data Privacy) */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 md:mb-16 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 mb-6"
+        >
+          <ShieldAlert className="w-4 h-4" />
+          <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest">
+            Privacy Protocol v2.5
+          </span>
+        </motion.div>
+        
+        <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight mb-6">
+          Privasi Klien Adalah <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">Prioritas Mutlak.</span>
         </h2>
-        <p className="text-slate-400 text-xs md:text-sm leading-relaxed max-w-xl mx-auto">
-          Dari UMKM lokal hingga ekspansi korporat. Temukan bagaimana blueprint kami menghemat ratusan juta rupiah dari risiko salah langkah.
+        
+        <p className="text-slate-300 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
+          Kami tidak mempublikasikan data spesifik atau kisah sukses klien secara vulgar. Setiap strategi yang kami susun bersifat <span className="text-white font-bold">rahasia dapur</span> bagi bisnis Anda, diproteksi sepenuhnya dari jangkauan kompetitor.
         </p>
       </div>
 
-      {/* AREA MARQUEE (Jarak antar baris dipersempit) */}
-      <div className="relative z-10 w-full flex flex-col gap-1 md:gap-2 overflow-hidden">
+      {/* AREA MARQUEE (Security Tickers) */}
+      <div className="relative z-10 w-full flex flex-col gap-2 md:gap-4 overflow-hidden">
         
-        {/* Shadow Overlay Kiri Kanan untuk efek pudar */}
-        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-[#0A0F1C] to-transparent z-20 pointer-events-none"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-[#0A0F1C] to-transparent z-20 pointer-events-none"></div>
+        {/* Shadow Overlay Kiri Kanan */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-64 bg-gradient-to-r from-[#0A0F1C]/90 to-transparent z-20 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-64 bg-gradient-to-l from-[#0A0F1C]/90 to-transparent z-20 pointer-events-none"></div>
 
-        <MarqueeRow items={topRow} direction="left" speed={60} />
-        <MarqueeRow items={bottomRow} direction="right" speed={55} />
+        <MarqueeRow items={topRow} direction="left" speed={30} />
+        <MarqueeRow items={bottomRow} direction="right" speed={35} />
 
+      </div>
+
+      {/* FOOTER TEXT */}
+      <div className="mt-12 text-center relative z-10">
+        <p className="text-slate-400 font-mono text-[10px] uppercase tracking-[0.3em] flex items-center justify-center gap-4">
+          <span className="w-8 h-px bg-white/10"></span>
+          Non-Disclosure Agreement Guaranteed
+          <span className="w-8 h-px bg-white/10"></span>
+        </p>
       </div>
     </section>
   );

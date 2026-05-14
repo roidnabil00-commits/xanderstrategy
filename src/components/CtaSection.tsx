@@ -16,7 +16,7 @@ import {
   AlertOctagon,
   ShieldCheck,
   Zap,
-  ArrowRight
+  ChevronRight
 } from "lucide-react";
 
 // ============================================================================
@@ -24,7 +24,7 @@ import {
 // ============================================================================
 
 /**
- * Interface untuk struktur data formulir prospek klien SBB.
+ * Interface untuk struktur data formulir prospek klien RECA.
  * Memastikan semua field terdefinisi dengan baik sebelum dikirim ke WA.
  */
 interface ProspectFormData {
@@ -62,19 +62,18 @@ interface InputFieldProps {
 }
 
 // ============================================================================
-// 2. CONSTANTS & MOCK DATA
+// 2. CONSTANTS & MOCK DATA (RECA UPDATE)
 // ============================================================================
 
 /** Nomor WhatsApp tujuan. Wajib format angka diawali kode negara (62 untuk Indonesia). */
 const WA_TARGET_NUMBER = "6281931656410";
 
-/** Daftar pilihan paket SBB untuk dropdown */
+/** Daftar pilihan paket RECA untuk dropdown */
 const PACKAGE_OPTIONS = [
-  { value: "", label: "-- Pilih Katalog SBB --" },
-  { value: "Free - Riset Awal 1 Lokasi", label: "Single / Free (Gratis Riset Awal)" },
-  { value: "Premium - SBB Basic", label: "Premium (SBB Basic)" },
-  { value: "Business - SBB Pro", label: "Business (SBB Pro - Paling Diminati)" },
-  { value: "Corporate - Master Blueprint", label: "Corporate (Master Blueprint)" },
+  { value: "", label: "-- Pilih Paket RECA --" },
+  { value: "Basic - Intelligence Starter", label: "Basic (Intelligence Starter)" },
+  { value: "Business/Pro - Intelligence Pro", label: "Business/Pro (Intelligence Pro - Terfavorit)" },
+  { value: "Corporate - Intelligence Suite", label: "Corporate (Intelligence Suite)" },
 ];
 
 // ============================================================================
@@ -129,13 +128,13 @@ const glowVariants: Variants = {
  * Menggunakan encodeURIComponent agar enter/spasi terbaca benar di WA.
  */
 const generateWhatsAppURL = (data: ProspectFormData): string => {
-  const textMessage = `Halo Tim Xander SBB,
+  const textMessage = `Halo Tim RECA by Xander,
 
-Saya tertarik untuk konsultasi dan mengamankan slot SBB bulan ini. Berikut data saya:
+Saya tertarik untuk konsultasi dan mengamankan akses RECA Intelligence bulan ini. Berikut data saya:
 
 *Nama:* ${data.name}
 *No. WhatsApp:* ${data.phone}
-*Email:* ${data.email}
+*Email:* ${data.email || "-"}
 *Paket Pilihan:* ${data.package}
 
 *Kebutuhan Bisnis/Pertanyaan Tambahan:*
@@ -277,23 +276,23 @@ const ScarcityContent: React.FC = () => {
           <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
         </span>
         <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-rose-400">
-          Kapasitas Tersisa: 2 Klien Bulan Ini
+          RECA-AI-TERMINAL not for everyone, kami batasi tiap bulan!
         </span>
       </motion.div>
 
       {/* Headline Utama */}
       <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
-        Siap Menguasai Pasar Sebelum <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-rose-400">Keduluan Kompetitor?</span>
+        Siap Menguasai Pasar RECA Sebelum <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-rose-400">Keduluan Kompetitor?</span>
       </motion.h2>
 
       {/* Body Copy */}
       <motion.p variants={itemVariants} className="text-base md:text-lg text-slate-300 leading-relaxed mb-6">
-        Karena kualitas analisis SBB ditangani langsung oleh konsultan utama, kami membatasi kapasitas maksimal hanya untuk <span className="font-bold text-white border-b border-rose-500">3-4 klien eksklusif setiap bulannya.</span>
+        Karena setup integrasi data dan analisa RECA ditangani langsung oleh Ai vertical dan para data analyst, perlindungan privasi, eksklusivitas dan <span className="font-bold text-white border-b border-rose-500">dibatasi serta bersifat confidential.</span>
       </motion.p>
       
       <motion.p variants={itemVariants} className="text-sm md:text-base text-slate-400 leading-relaxed mb-10 flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
         <Clock className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-        <span>Waktu terus berjalan. Jangan biarkan ide bisnis Anda hanya menjadi angan-angan yang dicuri oleh pesaing Anda.</span>
+        <span>Waktu terus berjalan. Amankan data Anda sebelum kompetitor mengambil langkah eksekusi terlebih dahulu.</span>
       </motion.p>
 
       {/* Value Pointers (Keuntungan Langsung) */}
@@ -384,7 +383,7 @@ const WhatsAppForm: React.FC = () => {
         
         {/* Header Form */}
         <div className="mb-8">
-          <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Amankan Slot Anda Bulan Ini!</h3>
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Amankan Akses RECA Bulan Ini!</h3>
           <p className="text-sm text-slate-400">Isi data di bawah, sistem akan meneruskannya ke WhatsApp konsultan kami.</p>
         </div>
 
@@ -425,10 +424,10 @@ const WhatsAppForm: React.FC = () => {
             />
           </div>
 
-          {/* Kolom 4: Dropdown Pilihan Paket */}
+          {/* Kolom 4: Dropdown Pilihan Paket RECA */}
           <div className="flex flex-col gap-1 w-full mb-4">
             <label htmlFor="package" className="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-1">
-              Pilihan Paket SBB
+              Pilihan Paket RECA
             </label>
             <div className={`relative flex items-center w-full bg-[#0A0F1C]/50 border rounded-lg transition-all duration-300 overflow-hidden ${errors.package ? "border-rose-500/50" : "border-white/10 hover:border-white/20"}`}>
               <div className="absolute top-0 left-0 bottom-0 flex items-center justify-center w-12 border-r border-white/5 bg-white/5 text-slate-500 pointer-events-none">
@@ -465,7 +464,7 @@ const WhatsAppForm: React.FC = () => {
           <InputField 
             id="message"
             label="Apa Yang Ingin Dibangun? (Opsional)"
-            placeholder="Ceritakan singkat tentang bisnis yang ingin Anda buka atau tantangan yang sedang dihadapi..."
+            placeholder="Ceritakan singkat tentang bisnis F&B yang ingin Anda buka atau tantangan yang sedang dihadapi..."
             icon={<MessageSquare className="w-5 h-5" />}
             value={formData.message}
             onChange={handleChange}
@@ -494,7 +493,7 @@ const WhatsAppForm: React.FC = () => {
           {/* Footer Teks Bawah Tombol */}
           <div className="mt-5 text-center flex flex-col items-center justify-center gap-2">
             <span className="text-[10px] md:text-xs text-slate-500">
-              Klik tombol di atas untuk terhubung langsung via WhatsApp dengan tim kami.
+              Klik tombol di atas untuk terhubung langsung via WhatsApp dengan konsultan kami.
             </span>
             <div className="flex items-center gap-1.5 text-[10px] text-teal-500/70 font-medium bg-teal-500/10 px-2 py-1 rounded">
               <AlertOctagon className="w-3 h-3" />
@@ -543,4 +542,3 @@ export default function CtaSection() {
     </motion.section>
   );
 }
-

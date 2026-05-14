@@ -31,7 +31,7 @@ export default function Navbar() {
           {/* LOGO (Teks Clean & Profesional) */}
           <a href="#" className="flex items-center group">
             <span className="text-xl md:text-2xl font-extrabold text-white tracking-widest uppercase transition-transform group-hover:scale-105">
-              XANDER STRATEGY<span className="text-teal-500">.</span>
+              RECA<span className="text-teal-500">.</span>
             </span>
           </a>
           

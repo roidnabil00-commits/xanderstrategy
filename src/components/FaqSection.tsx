@@ -4,112 +4,71 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ============================================================================
-// DATA STRUCTURES (COPYWRITING FAQ BARU)
+// DATA STRUCTURES (RECA PROFESSIONAL COPYWRITING)
 // ============================================================================
 
 const faqCategories = [
   {
-    category: "Tentang Layanan",
+    category: "Tentang Layanan & AI Terminal",
     items: [
       {
-        q: "Apa itu Strategic Business Blueprint (SBB)?",
-        a: "SBB adalah layanan riset pasar dan strategi marketing berbasis data yang membantu kamu memahami potensi pasar, memetakan kompetitor, dan masuk ke pasar dengan strategi yang tepat sebelum kamu mengeluarkan modal besar."
+        q: "Apa itu RECA-AI-TERMINAL?",
+        a: "RECA adalah layanan teknologi berbasis AI, data, dan riset khusus untuk industri F&B (Restaurant, Retail, Cafe, Catering). Kami membantu Anda memvalidasi ide, memetakan kompetitor, dan mengeksekusi strategi berdasarkan data aktual, bukan sekadar insting."
       },
       {
         q: "Siapa yang cocok menggunakan layanan ini?",
-        a: "Siapapun yang ingin membuka bisnis baru, memperluas bisnis yang sudah ada, atau ingin tahu kenapa bisnis mereka tidak berkembang. Baik bisnis offline maupun online, dari skala UKM sampai korporasi."
+        a: "Pebisnis F&B dari berbagai level: mulai dari calon pengusaha yang ingin membuka kedai kopi pertama, hingga investor dan korporasi F&B yang ingin melakukan ekspansi cabang dengan presisi tinggi."
       },
       {
-        q: "Apa bedanya SBB dengan riset bisnis biasa?",
-        a: "SBB memberikan dokumen riset yang konkret, berbasis data aktual, dan langsung bisa kamu eksekusi tanpa perlu interpretasi tambahan."
-      },
-      {
-        q: "Apakah SBB cocok untuk bisnis online maupun offline?",
-        a: "Ya. SBB tersedia dalam dua versi: offline untuk bisnis dengan lokasi fisik, dan online untuk bisnis di marketplace, media sosial, atau website. Kamu tinggal pilih sesuai model bisnis kamu."
-      },
-      {
-        q: "Apakah saya perlu pengalaman bisnis sebelumnya untuk menggunakan layanan ini?",
-        a: "Tidak perlu. SBB justru paling berguna untuk mereka yang baru mau mulai dan ingin memastikan langkah pertama mereka tidak salah arah."
+        q: "Apa bedanya RECA dengan konsultan bisnis tradisional?",
+        a: "Konsultan tradisional biasanya memakan waktu berbulan-bulan dan seringkali mengandalkan opini subjektif. RECA menggunakan AI dan teknologi untuk mengolah data (demografi, cuaca, sentimen kompetitor) dengan kecepatan tinggi, menghasilkan insight objektif dalam hitungan hari."
       }
     ]
   },
   {
-    category: "Tentang Proses",
+    category: "Tentang Proses & Hasil Riset",
     items: [
       {
-        q: "Bagaimana cara memulai?",
-        a: "Mulai dari yang gratis dulu: isi form Snapshot Pasar dan kamu akan menerima laporan pertama via WhatsApp dalam 24 jam. Setelah itu kamu bisa memutuskan apakah ingin lanjut ke paket berbayar."
+        q: "Berapa lama waktu pemrosesan datanya?",
+        a: "Sangat efisien. Paket Starter dan Pro (PDF/PPT) selesai dalam 1-5 hari kerja. Untuk akses Corporate (Software Dashboard interaktif & AI), setup awal memakan waktu 3-7 hari kerja."
       },
       {
-        q: "Berapa lama proses pengerjaan dari awal sampai dokumen selesai?",
-        a: "Tergantung paket yang kamu pilih. Free selesai dalam 24 jam, Basic 1-2 hari kerja, Business 2-3 hari kerja, dan Corporate 3-5 hari kerja."
+        q: "Informasi apa yang perlu saya berikan di awal?",
+        a: "Cukup spesifikasikan lokasi target, konsep F&B Anda (misal: kedai kopi, restoran keluarga, atau catering), dan estimasi skala bisnis. Algoritma kami akan mencari dan mengolah sisanya dari berbagai sumber digital dan riil."
       },
       {
-        q: "Informasi apa yang perlu saya siapkan sebelum mulai?",
-        a: "Cukup tiga hal: jenis bisnis yang ingin kamu buka atau kembangkan, lokasi atau platform target, dan gambaran target pelanggan kamu. Sisanya kami yang cari dan analisis."
-      },
-      {
-        q: "Apakah ada sesi diskusi atau konsultasi sebelum pengerjaan dimulai?",
-        a: "Ya, untuk paket Business dan Corporate ada sesi brief awal via WhatsApp atau call untuk memastikan riset yang kami lakukan benar-benar sesuai dengan kebutuhan spesifik kamu."
-      },
-      {
-        q: "Bagaimana cara saya menerima hasil risetnya?",
-        a: "Hasil riset akan dikirim secara personal lewat WhatsApp dan Google Drive (untuk format dokumen lengkap)."
+        q: "Apakah datanya sulit dibaca oleh orang awam?",
+        a: "Sama sekali tidak. Semua data disajikan dalam dashboard atau blueprint laporan yang sangat visual dan mudah dipahami. Kami juga menyertakan 'Tutorial Implementasi' dan 'AI Prompt Pack' agar Anda tahu persis apa langkah eksekusi selanjutnya."
       }
     ]
   },
   {
-    category: "Tentang Hasil & Kualitas",
+    category: "Fitur, Keuntungan & Eksklusivitas",
     items: [
       {
-        q: "Apakah data yang digunakan benar-benar aktual dan bukan template generik?",
-        a: "Ya. Setiap laporan dibuat khusus berdasarkan bisnis, lokasi, dan industri kamu bukan copy-paste dari template. Data diambil dari Google, marketplace, media sosial, dan platform riset pada saat pengerjaan berlangsung."
+        q: "Bagaimana cara kerja ROI Calculator di laporan RECA?",
+        a: "Anda cukup memasukkan angka modal awal dan estimasi biaya operasional. Sistem kami (didukung oleh rata-rata data wilayah tersebut) akan mengeluarkan estimasi Break-Even Point (BEP) dan proyeksi omzet bulanan secara rasional."
       },
       {
-        q: "Seberapa dalam analisis kompetitor yang diberikan?",
-        a: "Tergantung paket. Basic mencakup 5 kompetitor dengan analisis permukaan, Business masuk ke estimasi traffic dan strategi konten mereka, Corporate mencakup estimasi revenue, ad strategy, dan pemetaan ekosistem bisnis mereka secara menyeluruh."
+        q: "Apakah ada sistem eksklusivitas teritorial?",
+        a: "Ya, khusus untuk tier Corporate, kami membatasi maksimal 3 klien per wilayah per kuartal. Kompetitor Anda di wilayah tersebut tidak akan bisa mengakses data pemetaan spasial dan insight yang sama dari kami. Ini memberikan Anda First Mover Advantage."
       },
       {
-        q: "Apakah hasilnya bisa langsung saya eksekusi sendiri tanpa bantuan tim ahli?",
-        a: "Ya, itu tujuan utamanya. Setiap rekomendasi di dalam dokumen SBB ditulis dalam bahasa yang praktis dan actionable bukan bahasa konsultan yang butuh diterjemahkan lagi."
-      },
-      {
-        q: "Apakah ada revisi jika hasil tidak sesuai ekspektasi?",
-        a: "Untuk paket Basic ke atas tersedia satu kali revisi yang sudah termasuk dalam harga. Revisi dilakukan jika ada data yang kurang akurat atau ada poin yang perlu disesuaikan dengan kondisi aktual kamu di lapangan."
-      },
-      {
-        q: "Apakah SBB menjamin bisnis saya akan sukses setelah menggunakan layanan ini?",
-        a: "Tidak ada yang bisa menjamin kesuksesan bisnis termasuk konsultan manapun. Yang SBB jamin adalah kamu membuat keputusan berdasarkan data yang valid, bukan asumsi. Risiko tetap ada, tapi jauh lebih terukur."
+        q: "Apakah RECA menjamin bisnis F&B saya pasti sukses?",
+        a: "Tidak ada entitas yang bisa menjamin kesuksesan bisnis 100%. Yang RECA pastikan adalah Anda mengeksekusi bisnis dengan probabilitas keberhasilan yang jauh lebih tinggi. Dengan data yang valid, kerugian ratusan juta rupiah akibat salah pilih lokasi atau salah konsep bisa dihindari."
       }
     ]
   },
   {
-    category: "Tentang Harga & Pembayaran",
+    category: "Keamanan & Privasi Data",
     items: [
       {
-        q: "Mengapa ada paket gratis? Apa motivasinya?",
-        a: "Karena kami percaya kamu harus merasakan kualitas kerja kami sebelum memutuskan untuk bayar. Snapshot Pasar gratis adalah cara kami membuktikan bahwa riset berbasis data benar-benar membuat perbedaan, bukan sekadar klaim."
+        q: "Apakah data POS (Point of Sales) saya aman jika diintegrasikan ke sistem RECA?",
+        a: "Sangat aman dan 100% konfidensial. Jika Anda berada di paket Corporate, data operasional Anda hanya digunakan untuk melatih Asisten AI pribadi Anda dan memberikan visualisasi yang akurat. Data tersebut dienkripsi dan tidak akan pernah dibagikan atau dijual kepada klien/pihak lain."
       },
       {
-        q: "Bagaimana sistem pembayarannya?",
-        a: "Pembayaran dilakukan di awal sebelum pengerjaan dimulai. Kami menerima transfer bank dan QRIS. Untuk semua paket terdapat opsi DP 50% di awal dan 50% setelah dokumen selesai."
-      },
-      {
-        q: "Apakah harga bisa dinegosiasi?",
-        a: "Harga yang tertera sudah mencerminkan waktu, kedalaman riset, dan nilai yang kamu dapatkan. Namun untuk kebutuhan spesifik atau volume lebih dari satu project, silakan hubungi kami langsung untuk diskusi lebih lanjut."
-      }
-    ]
-  },
-  {
-    category: "Tentang Keamanan Data",
-    items: [
-      {
-        q: "Apakah informasi bisnis yang saya berikan dijaga kerahasiaannya?",
-        a: "Ya. Semua informasi yang kamu berikan hanya digunakan untuk keperluan riset kamu dan tidak akan dibagikan kepada pihak manapun. Setiap dokumen yang kami hasilkan adalah milik eksklusif kamu."
-      },
-      {
-        q: "Apakah kompetitor saya bisa tahu bahwa saya sedang melakukan riset tentang mereka?",
-        a: "Tidak. Semua riset dilakukan secara pasif menggunakan data yang sudah tersedia secara publik, review, media sosial, marketplace, dan platform riset. Tidak ada aktivitas yang bisa terdeteksi oleh kompetitor kamu."
+        q: "Apakah kompetitor akan tahu kalau saya sedang meriset mereka?",
+        a: "Tidak. Pengumpulan intelijen kompetitor yang kami lakukan bersifat pasif dan menggunakan teknologi analisis jejak digital, sentimen media sosial, serta data publik. Kompetitor Anda tidak akan mendeteksi aktivitas riset ini."
       }
     ]
   }
@@ -144,7 +103,7 @@ export default function FaqSection() {
             <span className="w-8 h-px bg-teal-500/50"></span>
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
-            Pelajari Lebih Lanjut <br className="hidden md:block"/> Tentang SBB
+            Pelajari Lebih Lanjut <br className="hidden md:block"/> Tentang RECA
           </h2>
         </div>
 
